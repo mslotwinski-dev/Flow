@@ -1,0 +1,56 @@
+# ─────────────────────────────────────────────
+#  Flow Configuration File Template  (~/.flow.conf)
+# ─────────────────────────────────────────────
+#
+# Copy this file to ~/.flow.conf and edit the values to match your environment.
+# All paths should be absolute (use $HOME expansion if needed).
+#
+
+# Absolute path to the local directory you want to keep synced with Google Drive.
+# Must exist and be readable.
+# Examples: "$HOME/Documents", "$HOME/projects", "/mnt/data/backup"
+WATCH_DIR="$HOME/Documents"
+
+# rclone remote name and destination folder on Google Drive.
+# Format: <remote-name>:<path-on-drive>
+# The remote must be configured in rclone (run 'rclone config' first).
+# Examples: "gdrive:Backups", "google:My Drive/Projects"
+RCLONE_REMOTE="gdrive:Flow"
+
+# Path to the log file. The parent directory must exist and be writable.
+# If you want logs in your home directory, use: $HOME/.local/share/flow/flow.log
+LOG_FILE="$HOME/.local/share/flow/flow.log"
+
+# Path to the PID file used for daemon management (start/stop/status).
+# Typically kept in /tmp which is writable on most systems.
+PID_FILE="/tmp/flow.pid"
+
+# Maximum file size (in megabytes) to sync.
+# Files larger than this threshold are skipped and logged as warnings.
+# Set to 0 or -1 to disable size limit.
+# Examples: 100 (100 MB), 1000 (1 GB), 5000 (5 GB)
+MAX_FILE_SIZE_MB=100
+
+# Space-separated list of file extensions to ignore (without the leading dot).
+# Files with these extensions are never synced.
+# Examples: "tmp swp bak log cache" (for temp/backup files)
+#           "zip tar gz tar.gz" (for archives)
+IGNORED_EXTENSIONS="tmp swp bak log cache"
+
+# Space-separated list of filename patterns to ignore (glob syntax).
+# Files matching any of these patterns are never synced.
+# Examples: ".git* node_modules *~" (ignore git dirs, dependencies, editor backups)
+#           "dist build *.pyc *.o" (ignore build artifacts)
+IGNORED_PATTERNS=".git* *~ node_modules dist build *.pyc *.o __pycache__"
+
+# Delay in seconds between detecting a file change and triggering a sync.
+# This debounce window prevents a burst of rapid editor saves from causing
+# many redundant uploads. Too low (< 1s) = more responsive but more rclone calls.
+# Too high (> 10s) = fewer uploads but less responsive.
+# Recommended: 1–5 seconds. Default: 2 seconds.
+SYNC_DELAY=2
+
+# Number of times rclone will retry a failed transfer before giving up.
+# Useful for transient network issues. Each retry has exponential backoff.
+# Examples: 0 (no retries), 3 (recommended), 5 (aggressive for slow networks)
+RCLONE_RETRIES=3
